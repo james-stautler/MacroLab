@@ -1,0 +1,54 @@
+# --- Build Artifacts ---
+# Ignore the entire build directory (standard for CMake)
+build/
+bin/
+lib/
+
+# --- Compiled Files ---
+*.o
+*.obj
+*.so
+*.a
+*.lib
+*.dll
+*.dylib
+*.exe
+*.out
+*.app
+
+# --- CMake Generated Files ---
+# (If you accidentally run cmake in the root)
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+Makefile
+compile_commands.json
+
+# --- IDE Specifics ---
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# CLion / JetBrains
+.idea/
+cmake-build-*/
+
+# Vim
+*.swp
+*~
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+
+# --- Camera / Project Specific ---
+# Ignore the high-res photos captured during testing
+*.jpg
+*.JPG
+*.cr2
+*.CR2
+*.raw
