@@ -1,16 +1,11 @@
 #include <iostream>
-
-extern "C" {
-    #include <gphoto2/gphoto2-camera.h>
-    #include <gphoto2/gphoto2-context.h>
-}
-
 #include <opencv4/opencv2/opencv.hpp>
+#include "../include/CameraHandler.h"
 
 int main(int argc, char* argv[])
 {
-    printf("Everything is working!\n");
-
+    CameraHandler camera();
+    printf("Successfully created camera object!\n");
     return 0;
 }
 
