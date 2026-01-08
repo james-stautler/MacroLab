@@ -16,6 +16,8 @@ private:
     GPContext* m_context;
 
 public:
+    CameraHandler();
+
     int connect();
     void disconnect();
 
