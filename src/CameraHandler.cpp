@@ -169,7 +169,7 @@ bool CameraHandler::captureImage(const std::string& fileName)
 
 }
 
-cv::Mat CameraHandler::captureImage()
+cv::Mat CameraHandler::getImageFrame()
 {
     CameraFilePath filePath;
     CameraFile* file;
@@ -178,6 +178,7 @@ cv::Mat CameraHandler::captureImage()
 
     if (gp_camera_capture(m_camera, GP_CAPTURE_IMAGE, &filePath, m_context) != GP_OK)
     {
+        Logger::Log(LogLevel::ERROR, "Error with gp_camera_capture call in captureImageData()");
         return cv::Mat();
     }
 
@@ -194,5 +195,30 @@ cv::Mat CameraHandler::captureImage()
 
     return frame;
 }
+
+cv::Mat CameraHandler::getPreviewFrame()
+{
+    CameraFile* file;
+    gp_file_new(&file);
+    const char* data;
+    unsigned long int size;
+
+    int res = gp_camera_capture_preview(m_camera, file, m_context);
+    if (res != GP_OK)
+    {
+        Logger::Log(LogLevel::ERROR, "Error with gp_camera_capture_preview in capturePreviewFrame()");
+        gp_file_unref(file);
+        return cv::Mat();
+    }
+
+    gp_file_get_data_and_size(file, &data, &size);
+
+    std::vector<uchar> buffer(data, data + size);
+    cv::Mat frame = cv::imdecode(buffer, cv::IMREAD_COLOR);
+
+    gp_file_unref(file);
+    return frame;
+}
+
 
 

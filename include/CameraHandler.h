@@ -8,9 +8,11 @@ extern "C"
 
 #include <string>
 #include <vector>
+#include <opencv4/opencv2/opencv.hpp>
 #include <opencv4/opencv2/core.hpp>
 #include <opencv4/opencv2/imgproc.hpp>
 #include <opencv4/opencv2/imgcodecs.hpp>
+#include <opencv4/opencv2/highgui.hpp>
 
 class CameraHandler
 {
@@ -31,7 +33,8 @@ public:
     bool setConfiguration(const std::string& setting, const std::string& value);
     
     bool captureImage(const std::string& fileName);
-    cv::Mat captureImage();
+    cv::Mat getImageFrame();
+    cv::Mat getPreviewFrame();
 
 };
 

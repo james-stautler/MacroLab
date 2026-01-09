@@ -1,8 +1,13 @@
 #include "../include/CommandInterface.h"
+#include <opencv4/opencv2/highgui.hpp>
 
 void CommandInterface::printHelp()
 {
-    printf("TODO: USAGE\n");
+    printf("MACROPHOTOGRAPHY CLI USAGE:\n");
+    printf("- get [setting]\n");
+    printf("- set [setting] [value]\n");
+    printf("- capture [file name]\n");
+    printf("- help\n");
 }
 
 std::vector<std::string> CommandInterface::tokenize(const std::string& input)
@@ -89,7 +94,7 @@ void CommandInterface::run()
         }
         else if (cmd == "capture")
         {
-            if (tokens.size() == 2)
+            if (tokens.size() != 2)
             {
                 Logger::Log(LogLevel::ERROR, "Improper usage of 'capture'. Enter 'help' for proper usage");
                 continue;
