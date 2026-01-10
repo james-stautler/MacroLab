@@ -1,5 +1,6 @@
 #include "../include/CameraHandler.h"
 #include "../include/Logger.h"
+#include <gphoto2/gphoto2-result.h>
 #include <gphoto2/gphoto2-widget.h>
 
 CameraHandler::CameraHandler()
@@ -194,6 +195,51 @@ cv::Mat CameraHandler::getImageFrame()
     gp_file_free(file);
 
     return frame;
+}
+
+int CameraHandler::startViewFinder()
+{
+    CameraWidget* root_config;
+    CameraWidget* viewfinder_widget;
+    int res;
+    
+    res = gp_camera_get_config(m_camera, &root_config, m_context);
+    if (res != GP_OK)
+    {
+        Logger::Log(LogLevel::ERROR, "Could not get camera config. Error: %d", res);
+        return res;
+    }
+
+    res = gp_widget_get_child_by_name(root_config, "viewfinder", &viewfinder_widget);
+    if (res == GP_OK)
+    {
+        int val = 1;
+        gp_widget_set_value(viewfinder_widget, &val);
+        res = gp_camera_set_config(m_camera, root_config, m_context);
+    }
+
+    gp_widget_free(root_config);
+    return res;
+}
+
+int CameraHandler::stopViewFinder()
+{
+    int res;
+
+    res = gp_camera_exit(m_camera, m_context);
+    if (res != GP_OK)
+    {
+        Logger::Log(LogLevel::ERROR, "Exit failed: %d", res);
+    }
+
+    res = gp_camera_init(m_camera, m_context);
+    if (res != GP_OK)
+    {
+        Logger::Log(LogLevel::ERROR, "Re-initialization failed: %d");
+        return res;
+    }
+
+    return res;
 }
 
 cv::Mat CameraHandler::getPreviewFrame()

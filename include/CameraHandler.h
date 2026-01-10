@@ -33,6 +33,8 @@ public:
     bool setConfiguration(const std::string& setting, const std::string& value);
     
     bool captureImage(const std::string& fileName);
+    int startViewFinder();
+    int stopViewFinder();
     cv::Mat getImageFrame();
     cv::Mat getPreviewFrame();
 

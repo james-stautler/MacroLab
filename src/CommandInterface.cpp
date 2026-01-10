@@ -1,5 +1,7 @@
 #include "../include/CommandInterface.h"
+#include <chrono>
 #include <opencv4/opencv2/highgui.hpp>
+#include <thread>
 
 void CommandInterface::printHelp()
 {
@@ -105,6 +107,6 @@ void CommandInterface::run()
         {
             Logger::Log(LogLevel::ERROR, "Please enter 'help' for a list of acceptable queries"); 
         }
-    }
-    
+    } 
+ 
 }
