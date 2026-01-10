@@ -4,6 +4,8 @@ add_executable(MacroLab
     CameraHandler.cpp
     CommandInterface.cpp
     FrameManager.cpp
+    FrameAnalyzer.cpp
+    DecisionFunctions.cpp
 )
 
 target_link_libraries(MacroLab

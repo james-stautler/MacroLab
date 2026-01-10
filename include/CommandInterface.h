@@ -1,15 +1,20 @@
 #pragma once
 
 #include "CameraHandler.h"
+#include "FrameManager.h"
+#include "FrameAnalyzer.h"
+#include "DecisionFunctions.h"
 #include "Logger.h"
 #include <string>
 #include <vector>
 #include <map>
+#include <opencv4/opencv2/highgui.hpp>
+#include <thread>
 
 class CommandInterface
 {
 private:
-    CameraHandler& m_camera;
+    CameraHandler m_camera;
     bool m_running;
 
     void printHelp();

@@ -1,7 +1,4 @@
 #include "../include/CommandInterface.h"
-#include <chrono>
-#include <opencv4/opencv2/highgui.hpp>
-#include <thread>
 
 void CommandInterface::printHelp()
 {
@@ -102,6 +99,22 @@ void CommandInterface::run()
                 continue;
             }
             handleCapture(tokens);
+        }
+        else if (cmd == "test")
+        {
+            m_camera.startViewFinder();
+
+            FrameAnalyzer f_analyzer;
+            f_analyzer.setCallback(DECISION_FUNCTIONS::motionDetection(3));
+            
+            FrameManager f_mgr(m_camera, f_analyzer);
+            std::thread producerThread(&FrameManager::producer, &f_mgr);
+            std::thread consumerThread(&FrameManager::consumer, &f_mgr);
+
+            producerThread.join();
+            consumerThread.join();
+
+            m_camera.stopViewFinder();
         }
         else 
         {

@@ -1,4 +1,4 @@
-#include "../include/FrameManager.h"
+ #include "../include/FrameManager.h"
 
 void FrameManager::producer() 
 { 
@@ -31,7 +31,12 @@ void FrameManager::consumer()
             m_hasNewFrame = false;
         }
 
-        // TODO: Frame Logic
+        m_frameAnalyzer.setFrame(frameToProcess);
+        if (m_frameAnalyzer.decision())
+        {
+            // PUT DECISION LOGIC IN HERE
+            m_running = false;
+        }
     }
 }
 
